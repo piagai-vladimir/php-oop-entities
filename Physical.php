@@ -1,53 +1,29 @@
 <?php
 
-//namespace Physicals;
-
-$dirName = __DIR__; //получаю текущую директорию
-$entity = $dirName . "/../Entity.php"; //формирую путь на уровень выше
-
-//проверяю, существует ли файл, чтоб не словить фаталку
-if(file_exists($entity)) {
-    require_once($entity);
-    echo "\nФайл |{$entity}| подключен!\n";
-}else{
-    echo "Ошибка в формировании адреса";
-}
-
-$tractor = $dirName . "/Equipments/Tractor.php";
-
-//проверяю, существует ли файл, чтоб не словить фаталку
-if(file_exists($tractor)) {
-    require_once($tractor);
-    echo "\nФайл |{$tractor}| подключен!\n";
-}else{
-    echo "Ошибка в формировании адреса";
-}
-
-//класс Physical наследуется от Entity. Абстрактный.
 abstract class Physical extends Entity
 {
-    //хук свойства износа (wear). По умолчанию 0.
-    public protected(set) float $wear = 0.0{
-        set(float $value){
-            //валидация: износ не может быть меньше 0 или больше 100
-            if($value < 0.0 || $value > 100.0){
-                //если значение некорректное, выбрасываю исключение
+    //protected(set) значит: читать можно всем, а менять только внутри класса и наследников.
+    public protected(set) float $wear = 0.0 {
+        set(float $value) {
+            // Ограничиваем износ диапазоном от 0 до 100
+            if ($value < 0.0 || $value > 100.0) {
                 throw new \OutOfRangeException("Износ может принимать значения от 0 до 100");
             }
             $this->wear = $value;
         }
     }
 
-    //метод обслуживания (ремонта) объекта
-    public function service(): Physical
-    {
-        //сбрасываю износ до нуля (сработает хук set и пропустит значение 0)
+    //метод сервисного обслуживания (сбрасывает износ)
+    public function service(): Physical {
         $this->wear = 0.0;
-        return $this; //возвращаю $this для реализации паттерна "Fluent Interface" (цепочек вызовов)
+        return $this; //возвращаю себя для цепочки вызовов
     }
 
-    //абстрактный метод. У физических объектов есть логика прикрепления к другим объектам.
-    //наследники обязаны его реализовать.
-    abstract public function attachTo(Tractor $tractor): Physical;
+    //публичный метод для изменения износа извне (обход protected(set))
+    public function applyWear(float $amount): void {
+        $this->wear = $amount;
+    }
 
+    //абстрактный метод, обязывающий наследников реализовать логику прикрепления
+    abstract public function attachTo(Physical $physical): Physical;
 }
