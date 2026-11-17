@@ -13,6 +13,16 @@ if(file_exists($entity)) {
     echo "Ошибка в формировании адреса";
 }
 
+$tractor = $dirName . "/Equipments/Tractor.php";
+
+//проверяю, существует ли файл, чтоб не словить фаталку
+if(file_exists($tractor)) {
+    require_once($tractor);
+    echo "\nФайл |{$tractor}| подключен!\n";
+}else{
+    echo "Ошибка в формировании адреса";
+}
+
 //класс Physical наследуется от Entity. Абстрактный.
 abstract class Physical extends Entity
 {
@@ -38,6 +48,6 @@ abstract class Physical extends Entity
 
     //абстрактный метод. У физических объектов есть логика прикрепления к другим объектам.
     //наследники обязаны его реализовать.
-    abstract public function attachTo(Physical $physical): Physical;
+    abstract public function attachTo(Tractor $tractor): Physical;
 
 }
