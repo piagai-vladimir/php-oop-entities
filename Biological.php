@@ -12,44 +12,34 @@ if(file_exists($entity)) {
     echo "Ошибка в формировании адреса";
 }
 
-//еще один абстрактный класс. Биологическое существо. 
-//наследует ID и Имя от Entity.
 abstract class Biological extends Entity
 {
-    //здоровье. По дефолту сотка. Защищено от прямого изменения.
-    protected float $health = 100.0;
+    //разрешено чтение из вне, но запрещена запись во внешнем коде
+    public protected(set) float $health = 100.0{
+        set(float $value){
+            $this->health = max(0.0, min(100.0, $value));
+            if ($this->health === 0.0)
+            {
+                echo "Объект с ID:{$this->id} умер.";
+                $this->handleDeath();
+            }
+        }
+    };
 
-    //узнать, сколько ХП осталось.
-    public function getHealth(): float
-    {
-        return $this->health;
+    public function __construct(string $id, string $name){
+        parent::__construct($id, $name);
     }
+    // public function getHealth(): float
+    // {
+    //    return $this->health;
+    // }
 
-    //метод для изменения здоровья (получение урона или хилка).
-    //$delta - это на сколько мы меняем ХП (минус - урон, плюс - лечение).
     public function changeHealth(float $delta): void
     {
-        //прибавляю/отнимаю переданное значение
         $this->health += $delta;
-
-        //зажимаю здоровье в рамки от 0 до 100. 
-        //чтоб не было такого: получил 150 урона, а здоровье стало -50.
-        $this->health = max(0.0, min(100.0, $this->health));
-
-        //если хп кончилось (ровно ноль)...
-        if ($this->health === 0.0)
-            {
-                //пишу в консоль, что существо с таким-то ID дало дуба.
-                echo "Объект с ID:{$this->id} мёртв.";
-
-                //вызываю абстрактный метод смерти. 
-                //сам класс Biological не знает, как именно умирать (разные существа - разная смерть).
-                //поэтому он передает этот вопрос наследникам (Зомби, Человек, Животное).
-                $this->handleDeath();
-
-            }
+        
     }
 
-    //абстрактный метод. Наследники обязаны его реализовать (прописать свою логику смерти).
     abstract protected function handleDeath(): void;
+
 }
