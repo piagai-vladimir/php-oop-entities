@@ -1,13 +1,7 @@
 <?php
 
-//создаю интерфейс для всего, что можно заправить/запитать.
-//тут я просто описываю контракт: какие методы обязаны быть у классов,
-//которые имплементируют этот интерфейс.
 interface PoweredInterface
 {
-    //любой класс должен уметь заправляться (принимать float, ничего не возвращать)
-    public function refuel(float $units): void;
-
-    //и уметь отдавать текущий процент заряда/топлива
     public function getPercentage(): float;
+    public function refuel(float $amount): static;
 }
