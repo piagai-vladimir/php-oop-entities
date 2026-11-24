@@ -1,5 +1,6 @@
 <?php
-
+namespace Physicals;
+use Entity;
 abstract class Physical extends Entity
 {
     //protected(set) значит: читать можно всем, а менять только внутри класса и наследников.
