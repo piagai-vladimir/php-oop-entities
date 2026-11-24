@@ -1,7 +1,7 @@
 <?php
-namespace Biologicals;
+namespace AgroManager\Biologicals;
 
-use Entity;
+use AgroManager\Entity;
 
 abstract class Biological extends Entity
 {
