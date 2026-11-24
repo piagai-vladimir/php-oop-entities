@@ -1,4 +1,7 @@
 <?php
+namespace Biologicals;
+
+use Entity;
 
 abstract class Biological extends Entity
 {
