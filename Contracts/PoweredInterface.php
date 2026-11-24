@@ -1,5 +1,5 @@
 <?php
-
+namespace AgroManager\Contracts;
 interface PoweredInterface
 {
     public function getPercentage(): float;
