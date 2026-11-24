@@ -1,11 +1,23 @@
 <?php
+namespace Biologicals\Animals;
+use Biologicals\Biological;
 
 class Chicken extends Biological
 {
-    protected function handleDeath(): void {
-        echo "Курица {$this->name} издохла.<br>";
+    private int $eggsLaid = 0;
+
+    public function layEgg(): void
+    {
+        $this->eggsLaid++;
     }
-    public function layEgg(): void {
-        echo "Курица {$this->name} снесла яйцо.<br>";
+
+    public function getEggsLaid(): int
+    {
+        return $this->eggsLaid;
+    }
+
+    public function handleDeath(): void
+    {
+        echo "Курица по имени {$this->name} умерла.\n";
     }
 }

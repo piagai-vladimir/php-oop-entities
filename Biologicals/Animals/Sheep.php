@@ -1,11 +1,30 @@
 <?php
+namespace Biologicals\Animals;
+use Biologicals\Biological;
 
 class Sheep extends Biological
 {
-    protected function handleDeath(): void {
-        echo "Овца {$this->name} умерла.<br>";
+    private float $woolAmount = 5.0;
+
+    public function shear(): float
+    {
+        $harvestedWool = $this->woolAmount;
+        $this->woolAmount = 0.0;
+        return $harvestedWool;
     }
-    public function shear(): void {
-        echo "Овцу {$this->name} подстригли.<br>";
+
+    public function growWool(float $amount): void
+    {
+        $this->woolAmount += $amount;
+    }
+
+    public function getWoolAmount(): float
+    {
+        return $this->woolAmount;
+    }
+
+    public function handleDeath(): void
+    {
+        echo "Овца по имени {$this->name} умерла.\n";
     }
 }

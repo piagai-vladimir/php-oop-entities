@@ -1,5 +1,10 @@
 <?php
 
+namespace Biologicals\Animals;
+
+use Biologicals\Biological;
+use Contracts\FeedableInterface;
+
 class Cow extends Biological
 {
     protected function handleDeath(): void {
