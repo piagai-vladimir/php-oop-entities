@@ -1,9 +1,9 @@
 <?php
 
-namespace Biologicals\Animals;
+namespace AgroManager\Biologicals\Animals;
 
-use Biologicals\Biological;
-use Contracts\FeedableInterface;
+use AgroManager\Biologicals\Biological;
+use AgroManager\Contracts\FeedableInterface;
 
 class Cow extends Biological
 {

@@ -1,6 +1,8 @@
 <?php
-namespace Biologicals\Animals;
-use Biologicals\Biological;
+namespace AgroManager\Biologicals\Animals;
+
+use AgroManager\Biologicals\Biological;
+use AgroManager\Contracts\FeedableInterface;
 
 class Chicken extends Biological
 {
