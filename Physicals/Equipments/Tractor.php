@@ -1,5 +1,9 @@
 <?php
+namespace AgroManager\Physicals\Equipments;
 
+use AgroManager\Physicals\Physical;
+use AgroManager\Physicals\Equipments\Equipment;
+use AgroManager\Contracts\PoweredInterface;
 final class Tractor extends Equipment
 {
     //атрибут #[Override] (PHP 8.3+) говорит IDE, что мы переопределяем метод родителя

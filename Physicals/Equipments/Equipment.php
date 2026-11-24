@@ -1,5 +1,10 @@
 <?php
 
+namespace AgroManager\Physicals\Equipments;
+
+use AgroManager\Physicals\Physical;
+use AgroManager\Contracts\PoweredInterface;
+
 //наследуюсь от Physical и реализуем интерфейс PoweredInterface
 abstract class Equipment extends Physical implements PoweredInterface
 {
